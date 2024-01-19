@@ -3,6 +3,8 @@ import { ViewTransitions } from "astro:transitions";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
+import "../styles/global.css";
+
 interface Props {
   title: string;
   referrer?: string;
@@ -18,7 +20,6 @@ const { title, referrer } = Astro.props;
     <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/icons8-fandom-96.png" />
-    <link rel="stylesheet" href="/src/styles/global.css" />
     <meta name="generator" content={Astro.generator} />
     <!-- Para que cargue la imagen del servidor de wikia -->
     {referrer && <meta name="referrer" content={referrer} />}
