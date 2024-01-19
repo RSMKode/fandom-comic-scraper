@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { scrapeComic } from "../services/scraper";
+import { time } from "console";
+
+import {} from "astro/types";
+import Box from "../components/Box.astro";
+
+const date = new Date();
+const day = String(date.getDate()).padStart(2, "0");
+const month = String(date.getMonth() + 1).padStart(2, "0"); // Se suma 1 porque los meses van de 0 a 11
+const year = date.getFullYear();
+
+const today = `${year}-${month}-${day}`;
+const comicURL = "https://marvel.fandom.com/wiki/Ultimate_Spider-Man_Vol_1_1";
+---
+
+<Layout title="Fandom Comic Scraper">
+  <h1>
+    Welcome to
+    <img class="logo" src="/icons8-fandom.svg" alt="Fandom Icon" />
+    <span class="text-gradient">Fandom Comic Scraper</span>
+  </h1>
+  <main class="container">
+    <Box>
+      <label for="urlInput">Ingresa la URL del cómic :</label>
+      <textarea id="urlInput" rows="3">{comicURL}</textarea>
+      <label for="fechaInput">Fecha lectura:</label>
+      <input id="fechaInput" type="date" value={today} />
+      <button id="scrapear">Scrapear</button>
+    </Box>
+  </main>
+  <style></style>
+  <script>
+    document.addEventListener("astro:page-load", () => {
+      async function handleScrape() {
+        const url =
+          document.querySelector<HTMLTextAreaElement>("#urlInput").value;
+
+        const date =
+          document.querySelector<HTMLInputElement>("#fechaInput").value;
+
+        // const scrapedComic = await scrapeComic(url, date, "marvel");
+
+        window.location.replace(
+          `/scraped-comic?comicURL=${url}&readDate=${date}`
+        );
+      }
+      document.querySelector("button").addEventListener("click", handleScrape);
+    });
+  </script>
+</Layout>

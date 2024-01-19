@@ -1,0 +1,81 @@
+---
+interface Props {
+  imageURL: string;
+  comicURL: string;
+  comicTitle: string;
+  releaseDate: string;
+  readDate: string;
+  writers: Array<string>;
+  pencilers: Array<string>;
+  inkers: Array<string>;
+  colorists: Array<string>;
+}
+
+const {
+  imageURL,
+  comicTitle,
+  releaseDate,
+  readDate,
+  writers,
+  pencilers,
+  inkers,
+  colorists,
+  comicURL,
+} = Astro.props;
+---
+
+<article class="card">
+  <img src={imageURL} alt="Comic Book Cover" />
+  <h2>
+    <a href={comicURL}>
+      {comicTitle}
+    </a>
+  </h2>
+  <p>Release Date: {releaseDate}</p>
+  <p>Read Date: {readDate}</p>
+  <h3>Writers</h3>
+  <ul>
+    {writers.map((element) => <li>{element}</li>)}
+  </ul>
+  <h3>Pencilers</h3>
+  <ul>
+    {pencilers.map((element) => <li>{element}</li>)}
+  </ul>
+  <h3>Inkers</h3>
+  <ul>
+    {inkers.map((element) => <li>{element}</li>)}
+  </ul>
+  <h3>Colorists</h3>
+  <ul>
+    {colorists.map((element) => <li>{element}</li>)}
+  </ul>
+</article>
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    place-content: start;
+    gap: 1em;
+    background-color: #23262d;
+    border-radius: 1em;
+    background-color: #23262d;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 1.5em 2em;
+  }
+
+  h2 {
+    font-size: 2.5em;
+    color: rgb(57, 221, 233);
+  }
+
+  a:is(:hover, :focus) {
+    box-shadow: none;
+    scale: 0.95;
+  }
+
+  img {
+    max-width: 20rem;
+    place-self: center;
+  }
+</style>

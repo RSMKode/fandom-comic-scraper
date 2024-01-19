@@ -1,0 +1,29 @@
+---
+
+---
+
+<article class="box">
+  <slot />
+</article>
+<style>
+  .box {
+    width: min(40rem, 90dvw);
+    display: flex;
+    flex-wrap: wrap;
+    place-content: start;
+    gap: 1em;
+    border-radius: 1em;
+    /* background-color: var(--accent-dark); */
+    border: 2px solid var(--accent-light);
+    color: white;
+    padding: 1.5em 2em;
+    font-size: 1.2rem;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+  }
+
+  h2 {
+    font-size: 2.5em;
+    color: var(--accent-light);
+  }
+</style>

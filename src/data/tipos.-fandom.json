@@ -1,0 +1,5 @@
+{
+  "marvel-comics": { "nombre": "Marvel Database", "wikiUrl": "https://marvel.fandom.com/wiki/" },
+  "dc-comics": { "nombre": "DC Database ", "wikiUrl": "https://dc.fandom.com/wiki/" },
+  "image-comics": { "nombre": "Image Comics Database ", "wikiUrl": "https://imagecomics.fandom.com/wiki/" }
+}
