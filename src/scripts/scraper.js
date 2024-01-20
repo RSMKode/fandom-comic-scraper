@@ -25,8 +25,8 @@ export async function scrapeComic(comicURL, date, type = "marvel") {
 }
 
 function scrapeMarvelComic(comicURL, readDate, $) {
-  const comicTitle = $("h2.pi-title").text();
-  
+  const title = $("h2.pi-title").text();
+
   const imageURL = $("a.image-thumbnail").toArray()[0].attribs["href"];
 
   const releaseDate = $("[data-source='ReleaseDate'] div a").toArray()[0]
@@ -52,9 +52,9 @@ function scrapeMarvelComic(comicURL, readDate, $) {
   );
 
   return {
-    imageURL,
     comicURL,
-    comicTitle,
+    title,
+    imageURL,
     releaseDate,
     readDate,
     writers: writersArray,

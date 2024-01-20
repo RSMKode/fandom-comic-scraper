@@ -58,11 +58,11 @@ header {
   place-content: center;
   padding: 1rem;
   gap: 1rem;
-  font-size: 2rem;
   width: 100%;
 }
 
 nav {
+  font-size: 2rem;
   display: flex;
   gap: 2rem;
 }
@@ -107,9 +107,45 @@ main.container {
   place-items: center;
 }
 
+form {
+  width: min(40rem, 90dvw);
+  display: flex;
+  flex-wrap: wrap;
+  place-content: start;
+  gap: 1em;
+  border-radius: 1em;
+  /* background-color: var(--accent-dark); */
+  border: 2px solid var(--accent-light);
+  color: white;
+  padding: 1.5em 2em;
+  font-size: 1.2rem;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  box-shadow: 4px 4px 15px black;
+}
+
+form button {
+  border-radius: 0.5rem;
+  background-color: var(--accent-light);
+  font-weight: bold;
+  border: 2px solid white;
+  transition: all 0.3s ease;
+  box-shadow: 4px 4px 15px black;
+}
+form button:is(:hover, :focus) {
+  scale: 1.1;
+  background-color: white;
+  color: var(--accent);
+  border: 2px solid var(--accent-light);
+  box-shadow: 0px 0px 15px var(--accent-light);
+  cursor: pointer;
+}
+
 textarea,
 input,
 button {
+  border-radius: 0.2rem;
+  line-height: 1;
   font-size: 1rem;
   padding: 0.2rem 0.4rem;
 }

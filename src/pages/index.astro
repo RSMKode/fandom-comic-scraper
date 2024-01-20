@@ -1,9 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { scrapeComic } from "../services/scraper";
-import { time } from "console";
-
-import {} from "astro/types";
 import Box from "../components/Box.astro";
 
 const date = new Date();
@@ -22,31 +18,12 @@ const comicURL = "https://marvel.fandom.com/wiki/Ultimate_Spider-Man_Vol_1_1";
     <span class="text-gradient">Fandom Comic Scraper</span>
   </h1>
   <main class="container">
-    <Box>
-      <label for="urlInput">Ingresa la URL del cómic :</label>
-      <textarea id="urlInput" rows="3">{comicURL}</textarea>
-      <label for="fechaInput">Fecha lectura:</label>
-      <input id="fechaInput" type="date" value={today} />
-      <button id="scrapear">Scrapear</button>
-    </Box>
+    <form action="/scraped-comic" method="GET">
+      <label for="comicURL">Comic URL:</label>
+      <textarea id="comicURL" name="comicURL" rows="3">{comicURL}</textarea>
+      <label for="readDate">Read Date:</label>
+      <input id="readDate" name="readDate" type="date" value={today} />
+      <button id="scrapear">Scrape</button>
+    </form>
   </main>
-  <style></style>
-  <script>
-    document.addEventListener("astro:page-load", () => {
-      async function handleScrape() {
-        const url =
-          document.querySelector<HTMLTextAreaElement>("#urlInput").value;
-
-        const date =
-          document.querySelector<HTMLInputElement>("#fechaInput").value;
-
-        // const scrapedComic = await scrapeComic(url, date, "marvel");
-
-        window.location.replace(
-          `/scraped-comic?comicURL=${url}&readDate=${date}`
-        );
-      }
-      document.querySelector("button").addEventListener("click", handleScrape);
-    });
-  </script>
 </Layout>

@@ -1,57 +1,56 @@
 ---
 interface Props {
-  imageURL: string;
-  comicURL: string;
-  comicTitle: string;
-  releaseDate: string;
-  readDate: string;
-  writers: Array<string>;
-  pencilers: Array<string>;
-  inkers: Array<string>;
-  colorists: Array<string>;
+  comic: {
+    comicURL: string;
+    title: string;
+    imageURL: string;
+    releaseDate: string;
+    readDate: string;
+    writers: Array<string>;
+    pencilers: Array<string>;
+    inkers: Array<string>;
+    colorists: Array<string>;
+  };
 }
 
-const {
-  imageURL,
-  comicTitle,
-  releaseDate,
-  readDate,
-  writers,
-  pencilers,
-  inkers,
-  colorists,
-  comicURL,
-} = Astro.props;
+const { comic } = Astro.props;
+
+console.log(comic);
 ---
 
 <article class="card">
-  <img src={imageURL} alt="Comic Book Cover" />
-  <h2>
-    <a href={comicURL}>
-      {comicTitle}
-    </a>
-  </h2>
-  <p>Release Date: {releaseDate}</p>
-  <p>Read Date: {readDate}</p>
+  <header class="card-header">
+    <img src={comic.imageURL} alt="Comic Book Cover" />
+    <div class="card-header-datos">
+      <h2>
+        <a href={comic.comicURL}>
+          {comic.title}
+        </a>
+      </h2>
+      <p>Release Date: {comic.releaseDate}</p>
+      <p>Read Date: {comic.readDate}</p>
+    </div>
+  </header>
   <h3>Writers</h3>
   <ul>
-    {writers.map((element) => <li>{element}</li>)}
+    {comic.writers.map((element) => <li>{element}</li>)}
   </ul>
   <h3>Pencilers</h3>
   <ul>
-    {pencilers.map((element) => <li>{element}</li>)}
+    {comic.pencilers.map((element) => <li>{element}</li>)}
   </ul>
   <h3>Inkers</h3>
   <ul>
-    {inkers.map((element) => <li>{element}</li>)}
+    {comic.inkers.map((element) => <li>{element}</li>)}
   </ul>
   <h3>Colorists</h3>
   <ul>
-    {colorists.map((element) => <li>{element}</li>)}
+    {comic.colorists.map((element) => <li>{element}</li>)}
   </ul>
 </article>
 <style>
-  .card {
+  article.card {
+    width: 100%;
     display: flex;
     flex-direction: column;
     place-content: start;
@@ -63,23 +62,37 @@ const {
     color: white;
     padding: 1.5em 2em;
   }
-
-  h2 {
-    font-size: 2.5em;
-    color: rgb(57, 221, 233);
+  header.card-header {
+    font-size: 1.5rem;
+    padding: 0;
   }
 
-  a:is(:hover, :focus) {
-    box-shadow: none;
-    scale: 2;
+  header.card-header h2 {
+    font-size: 3rem;
+    text-wrap: pretty;
   }
 
-  img {
-    width: 80%;
-    place-self: center;
+  header.card-header > img {
+    min-width: 0;
+    flex: 2;
+    border-radius: 1rem;
+  }
+  header.card-header > .card-header-datos {
+    flex: 3;
   }
 
   ul {
     list-style: none;
+  }
+
+  @media (700px > width) {
+    header.card-header {
+      flex-direction: column;
+    }
+
+    header.card-header > img {
+      max-width: 80%;
+      place-self: center;
+    }
   }
 </style>

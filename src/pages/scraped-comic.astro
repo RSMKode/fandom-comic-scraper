@@ -1,45 +1,22 @@
 ---
 // @ts-nocheck
-import { scrapeComic } from "../services/scraper";
+import { scrapeComic } from "../scripts/scraper";
 
 import Layout from "../layouts/Layout.astro";
 import ComicCard from "../components/ComicCard.astro";
 
-// Crear un objeto URLSearchParams basado en la URL
+// Objeto URLSearchParams
 const params = Astro.url.searchParams;
-// Obtener el valor del parámetro 'nombre'
+// Obtener los valores
 const comicURL = params.get("comicURL");
-const date = params.get("readDate");
-console.log(Astro.url);
-console.log(params);
+const readDate = params.get("readDate");
 
-const comic = await scrapeComic(comicURL, date);
-
-const {
-  imageURL,
-  comicTitle,
-  releaseDate,
-  readDate,
-  writers,
-  pencilers,
-  inkers,
-  colorists,
-} = comic;
+const comic = await scrapeComic(comicURL, readDate);
 
 console.log(comic);
 // console.log(writersArray);
 ---
 
-<Layout title={comicTitle} referrer="same-origin">
-  <ComicCard
-    imageURL={imageURL}
-    comicTitle={comicTitle}
-    comicURL={comicURL}
-    releaseDate={releaseDate}
-    readDate={readDate}
-    writers={writers}
-    pencilers={pencilers}
-    inkers={inkers}
-    colorists={colorists}
-  />
+<Layout title={comic.title} referrer="same-origin">
+  <ComicCard comic={comic} />
 </Layout>
