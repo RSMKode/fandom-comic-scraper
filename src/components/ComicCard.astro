@@ -31,36 +31,52 @@ console.log(comic);
       <p>Read Date: {comic.readDate}</p>
     </div>
   </header>
-  <h3>Writers</h3>
-  <ul>
-    {comic.writers.map((element) => <li>{element}</li>)}
-  </ul>
-  <h3>Pencilers</h3>
-  <ul>
-    {comic.pencilers.map((element) => <li>{element}</li>)}
-  </ul>
-  <h3>Inkers</h3>
-  <ul>
-    {comic.inkers.map((element) => <li>{element}</li>)}
-  </ul>
-  <h3>Colorists</h3>
-  <ul>
-    {comic.colorists.map((element) => <li>{element}</li>)}
-  </ul>
+  <section>
+    <h3>Writers</h3>
+    <ul>
+      {comic.writers.map((element) => <li>{element}</li>)}
+    </ul>
+  </section>
+  <section>
+    <h3>Pencilers</h3>
+    <ul>
+      {comic.pencilers.map((element) => <li>{element}</li>)}
+    </ul>
+  </section>
+  <section>
+    <h3>Inkers</h3>
+    <ul>
+      {comic.inkers.map((element) => <li>{element}</li>)}
+    </ul>
+  </section>
+  <section>
+    <h3>Colorists</h3>
+    <ul>
+      {comic.colorists.map((element) => <li>{element}</li>)}
+    </ul>
+  </section>
 </article>
 <style>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
   article.card {
+    overflow: hidden;
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     place-content: start;
     gap: 1em;
     background-color: #23262d;
     border-radius: 1em;
-    background-color: #23262d;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--accent);
     color: white;
     padding: 1.5em 2em;
+  }
+
+  article.card {
   }
   header.card-header {
     font-size: 1.5rem;
@@ -69,16 +85,39 @@ console.log(comic);
 
   header.card-header h2 {
     font-size: 3rem;
+    text-shadow: 2px 2px 10px black;
     text-wrap: pretty;
   }
 
   header.card-header > img {
-    min-width: 0;
-    flex: 2;
+    max-width: 30%;
     border-radius: 1rem;
+    border: 1px solid transparent;
+    box-shadow: 2px 2px 10px black;
+    transition: all 0.3s ease;
   }
+
+  header.card-header > img:is(:hover, :focus) {
+    border: 1px solid white;
+    box-shadow: 0px 0px 10px var(--accent-light);
+  }
+
   header.card-header > .card-header-datos {
-    flex: 3;
+  }
+
+  article.card section {
+    padding: 0.5rem 1rem;
+    background-color: var(--accent-dark);
+    border-radius: 1rem;
+    box-shadow: 2px 2px 10px black;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+  }
+  article.card section:is(:hover, :focus) {
+    border: 1px solid transparent;
+    color: var(--accent);
+    background-color: white;
+    box-shadow: 0px 0px 10px var(--accent);
   }
 
   ul {
@@ -91,7 +130,7 @@ console.log(comic);
     }
 
     header.card-header > img {
-      max-width: 80%;
+      max-width: 70%;
       place-self: center;
     }
   }
