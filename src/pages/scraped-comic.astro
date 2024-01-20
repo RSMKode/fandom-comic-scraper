@@ -1,6 +1,7 @@
 ---
 // @ts-nocheck
 import { scrapeComic } from "../scripts/scraper";
+import Error from "../components/Error.astro";
 
 import Layout from "../layouts/Layout.astro";
 import ComicCard from "../components/ComicCard.astro";
@@ -10,13 +11,26 @@ const params = Astro.url.searchParams;
 // Obtener los valores
 const comicURL = params.get("comicURL");
 const readDate = params.get("readDate");
+let comic;
+let errorMessage;
 
-const comic = await scrapeComic(comicURL, readDate);
+try {
+  comic = await scrapeComic(comicURL, readDate);
+} catch (error) {
+  errorMessage = error.message;
+  console.log(error.message);
+}
 
-console.log(comic);
+// console.log(comic);
 // console.log(writersArray);
 ---
 
-<Layout title={comic.title} referrer="same-origin">
-  <ComicCard comic={comic} />
+<Layout title={comic ? comic.title : "Error"} referrer="same-origin">
+  {
+    !errorMessage ? (
+      <ComicCard comic={comic} />
+    ) : (
+      <Error errorMessage={errorMessage} />
+    )
+  }
 </Layout>

@@ -27,6 +27,11 @@ export async function scrapeComic(comicURL, date, type = "marvel") {
 function scrapeMarvelComic(comicURL, readDate, $) {
   const title = $("h2.pi-title").text();
 
+  if (title === "")
+    throw new Error("Title not found. Please check the comic URL.");
+
+  console.log(title, readDate, comicURL, $.html().length);
+
   const imageURL = $("a.image-thumbnail").toArray()[0].attribs["href"];
 
   const releaseDate = $("[data-source='ReleaseDate'] div a").toArray()[0]

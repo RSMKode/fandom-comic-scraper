@@ -1,9 +1,11 @@
 ---
-
+const { errorMessage } = Astro.props;
 ---
 
 <article class="box">
-  <slot />
+  <p>
+    {errorMessage}
+  </p>
 </article>
 <style>
   .box {
