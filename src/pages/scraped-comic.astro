@@ -1,6 +1,6 @@
 ---
 // @ts-nocheck
-import { scrapeComic } from "../scripts/scraper";
+import { scrapeComic } from "../scripts/mainScraper";
 import Error from "../components/Error.astro";
 
 import Layout from "../layouts/Layout.astro";
@@ -34,3 +34,9 @@ try {
     )
   }
 </Layout>
+<script>
+  const comicHistoryData = window.localStorage["comicHistory"]
+    ? JSON.parse(window.localStorage["comicHistory"])
+    : {};
+  console.log(comicHistoryData);
+</script>
