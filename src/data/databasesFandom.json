@@ -1,0 +1,14 @@
+{
+  "marvelComics": {
+    "name": "Marvel Comics",
+    "wikiURL": "https://marvel.fandom.com"
+  },
+  "dcComics": {
+    "name": "DC Comics",
+    "wikiURL": "https://dc.fandom.com"
+  },
+  "imageComics": {
+    "name": "Image Comics",
+    "wikiURL": "https://imagecomics.fandom.com"
+  }
+}

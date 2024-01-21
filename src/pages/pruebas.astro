@@ -1,0 +1,22 @@
+---
+import ComicCard from "../components/ComicCard.astro";
+import Layout from "../layouts/Layout.astro";
+import { scrapeComic } from "../scripts/mainScraper";
+import databases from "../data/databasesFandom.json";
+
+const comicURL = "https://marvel.fandom.com/wiki/Ultimate_Spider-Man_Vol_1_1";
+
+const comic = await scrapeComic(comicURL, "2024/01/20");
+---
+
+<Layout title="Fandom Comic Scraper">
+  <h1>
+    <span class="text-gradient">Pruebas</span>
+  </h1>
+  <main class="container">
+    <ComicCard comic={comic} />
+  </main>
+  <style></style>
+  <script></script>
+</Layout>
+../scripts/mainScraper

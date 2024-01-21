@@ -1,15 +1,31 @@
 ---
 interface Props {
   comic: {
+    publisher: {
+      name: string;
+      wikiURL: string;
+    };
+    previousIssue: {
+      title: string;
+      href: string;
+    };
+    nextIssue: {
+      title: string;
+      href: string;
+    };
+    event_arc: string;
     comicURL: string;
     title: string;
     imageURL: string;
     releaseDate: string;
+    coverDate: string;
     readDate: string;
     writers: Array<string>;
     pencilers: Array<string>;
     inkers: Array<string>;
     colorists: Array<string>;
+    letterers: Array<string>;
+    editors: Array<string>;
   };
 }
 
@@ -27,8 +43,40 @@ console.log(comic);
           {comic.title}
         </a>
       </h2>
+      <h3>{comic.publisher.name}</h3>
+      {comic.event_arc && <h4>Event/Arc: {comic.event_arc}</h4>}
       <p>Release Date: {comic.releaseDate}</p>
       <p>Read Date: {comic.readDate}</p>
+      <ul>
+        {
+          comic.previousIssue.title && (
+            <li>
+              Previous Issue:
+              <a
+                href={`http://localhost:4321/scraped-comic?comicURL=${
+                  comic.publisher.wikiURL + comic.previousIssue.href
+                }&readDate${comic.readDate}`}
+              >
+                {comic.previousIssue.title}
+              </a>
+            </li>
+          )
+        }
+        {
+          comic.nextIssue.title && (
+            <li>
+              Next Issue:
+              <a
+                href={`http://localhost:4321/scraped-comic?comicURL=${
+                  comic.publisher.wikiURL + comic.nextIssue.href
+                }&readDate${comic.readDate}`}
+              >
+                {comic.nextIssue.title}
+              </a>
+            </li>
+          )
+        }
+      </ul>
     </div>
   </header>
   <section>
@@ -55,6 +103,18 @@ console.log(comic);
       {comic.colorists.map((element) => <li>{element}</li>)}
     </ul>
   </section>
+  <section>
+    <h3>Letterers</h3>
+    <ul>
+      {comic.letterers.map((element) => <li>{element}</li>)}
+    </ul>
+  </section>
+  <section>
+    <h3>Editors</h3>
+    <ul>
+      {comic.editors.map((element) => <li>{element}</li>)}
+    </ul>
+  </section>
 </article>
 <style>
   *,
@@ -76,8 +136,6 @@ console.log(comic);
     padding: 1.5em 2em;
   }
 
-  article.card {
-  }
   header.card-header {
     font-size: 1.5rem;
     padding: 0;
