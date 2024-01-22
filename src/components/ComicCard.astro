@@ -8,14 +8,18 @@ interface Props {
       name: string;
       wikiURL: string;
     };
-    previousIssue: {
-      title: string;
-      href: string;
-    };
-    nextIssue: {
-      title: string;
-      href: string;
-    };
+    previousIssues: [
+      {
+        title: string;
+        href: string;
+      },
+    ];
+    nextIssues: [
+      {
+        title: string;
+        href: string;
+      },
+    ];
     event_arc: string;
     releaseDate: string;
     coverDate: string;
@@ -48,34 +52,38 @@ console.log(comic);
       {comic.releaseDate && <p>Release Date: {comic.releaseDate}</p>}
       {!comic.releaseDate && <p>Cover Date: {comic.coverDate}</p>}
       <p>Read Date: {comic.readDate}</p>
+      <p>Previous Issue/s:</p>
       <ul>
         {
-          comic.previousIssue.title && (
-            <li>
-              Previous Issue:
-              <a
-                href={`/scraped-comic?comicURL=${
-                  comic.publisher.wikiURL + comic.previousIssue.href
-                }&readDate=${comic.readDate}`}
-              >
-                {comic.previousIssue.title}
-              </a>
-            </li>
-          )
+          comic.previousIssues[0]?.title &&
+            comic.previousIssues.map((issue) => (
+              <li>
+                <a
+                  href={`/scraped-comic?comicURL=${
+                    comic.publisher.wikiURL + issue.href
+                  }&readDate=${comic.readDate}`}
+                >
+                  {issue.title}
+                </a>
+              </li>
+            ))
         }
+      </ul>
+      <p>Next Issue/s:</p>
+      <ul>
         {
-          comic.nextIssue.title && (
-            <li>
-              Next Issue:
-              <a
-                href={`/scraped-comic?comicURL=${
-                  comic.publisher.wikiURL + comic.nextIssue.href
-                }&readDate=${comic.readDate}`}
-              >
-                {comic.nextIssue.title}
-              </a>
-            </li>
-          )
+          comic.nextIssues[0]?.title &&
+            comic.nextIssues.map((issue) => (
+              <li>
+                <a
+                  href={`/scraped-comic?comicURL=${
+                    comic.publisher.wikiURL + issue.href
+                  }&readDate=${comic.readDate}`}
+                >
+                  {issue.title}
+                </a>
+              </li>
+            ))
         }
       </ul>
     </div>

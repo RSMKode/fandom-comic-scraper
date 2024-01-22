@@ -32,10 +32,10 @@ export async function scrapeComic(comicURL, date) {
   switch (database.name) {
     case "Marvel Comics":
       return scrapeMarvelComic(comicTemplate, $);
-    case "dc":
+    case "Marvel Comics":
     //   return scrapeDCComic(comicURL, date);
-    // default:
-    // throw new Error("Invalid comic type");
+    default:
+      throw new Error("Invalid comic database");
   }
 }
 
@@ -59,19 +59,24 @@ function scrapeMarvelComic(comicTemplate, $) {
     : $(".portable-infobox > div:nth-of-type(2) div").text();
   comicTemplate.coverDate = coverDate ? coverDate : "";
 
-  const previousIssue = {
-    title: $("[data-source='PreviousIssue'] a").text(),
-    href: $("[data-source='PreviousIssue'] a").attr("href"),
-  };
-  previousIssue.href = previousIssue.href;
-  comicTemplate.previousIssue = previousIssue ? previousIssue : "";
+  const previousIssueData = $("[data-source='PreviousIssue'] a").toArray();
+  const previousIssueArray = previousIssueData.map((element) => {
+    return {
+      title: element.attribs["title"],
+      href: element.attribs["href"],
+    };
+  });
+  console.log;
+  comicTemplate.previousIssues = previousIssueArray ? previousIssueArray : "";
 
-  const nextIssue = {
-    title: $("[data-source='NextIssue'] a").text(),
-    href: $("[data-source='NextIssue'] a").attr("href"),
-  };
-  nextIssue.href = nextIssue.href;
-  comicTemplate.nextIssue = nextIssue ? nextIssue : "";
+  const nextIssueData = $("[data-source='NextIssue'] a").toArray();
+  const nextIssueArray = nextIssueData.map((element) => {
+    return {
+      title: element.attribs["title"],
+      href: element.attribs["href"],
+    };
+  });
+  comicTemplate.nextIssues = nextIssueArray ? nextIssueArray : "";
 
   const writersData = $("[data-source^='Writers'] div a").toArray();
   // console.log("MIAU", writersData);
