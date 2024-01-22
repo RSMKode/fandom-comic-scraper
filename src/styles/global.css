@@ -156,5 +156,6 @@ textarea {
 }
 
 footer {
+  display: flex;
   font-size: 0.5;
 }

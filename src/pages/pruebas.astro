@@ -4,9 +4,15 @@ import Layout from "../layouts/Layout.astro";
 import { scrapeComic } from "../scripts/mainScraper";
 import databases from "../data/databasesFandom.json";
 
-const comicURL = "https://marvel.fandom.com/wiki/Ultimate_Spider-Man_Vol_1_1";
+// const comicURL = "https://dc.fandom.com/wiki/Batman_Vol_3_1";
+// const comicURL = "https://dc.fandom.com/wiki/DCU:_Rebirth_Vol_1_1";
+const comicURL = "https://dc.fandom.com/wiki/Batman:_Rebirth_Vol_1_1";
 
 const comic = await scrapeComic(comicURL, "2024/01/20");
+
+// const dateRegex = /[A-Z][a-z]+ [0-9]{1,2}, [0-9]{4}/;
+// const string = "skjahsfl   kashjdflksjhdf hskjahdflkasjhdf November 20, 2000";
+// console.log(string.match(dateRegex)[0]);
 ---
 
 <Layout title="Fandom Comic Scraper">
@@ -14,9 +20,8 @@ const comic = await scrapeComic(comicURL, "2024/01/20");
     <span class="text-gradient">Pruebas</span>
   </h1>
   <main class="container">
-    <ComicCard comic={comic} />
+    <!-- <ComicCard comic={comic} /> -->
   </main>
   <style></style>
   <script></script>
 </Layout>
-../scripts/mainScraper

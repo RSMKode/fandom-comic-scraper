@@ -20,7 +20,7 @@ interface Props {
         href: string;
       },
     ];
-    event_arc: string;
+    event_arc: Array<string>;
     releaseDate: string;
     coverDate: string;
     readDate: string;
@@ -36,6 +36,8 @@ interface Props {
 const { comic } = Astro.props;
 
 console.log(comic);
+
+console.log(comic.event_arc.toString());
 ---
 
 <article class="card">
@@ -43,49 +45,63 @@ console.log(comic);
     <img src={comic.imageURL} alt="Comic Book Cover" />
     <div class="card-header-datos">
       <h2>
-        <a href={comic.comicURL}>
+        <a target="_blank" href={comic.comicURL}>
           {comic.title}
         </a>
       </h2>
       <h3>{comic.publisher.name}</h3>
-      {comic.event_arc && <h4>Event/Arc: {comic.event_arc}</h4>}
+      {
+        comic.event_arc.length !== 0 && (
+          <h4>Event/Arc: {comic.event_arc.join(", ")}</h4>
+        )
+      }
       {comic.releaseDate && <p>Release Date: {comic.releaseDate}</p>}
-      {!comic.releaseDate && <p>Cover Date: {comic.coverDate}</p>}
+      {
+        comic.coverDate && comic.coverDate !== comic.releaseDate && (
+          <p>Cover Date: {comic.coverDate}</p>
+        )
+      }
       <p>Read Date: {comic.readDate}</p>
-      <p>Previous Issue/s:</p>
-      <ul>
-        {
-          comic.previousIssues[0]?.title &&
-            comic.previousIssues.map((issue) => (
-              <li>
-                <a
-                  href={`/scraped-comic?comicURL=${
-                    comic.publisher.wikiURL + issue.href
-                  }&readDate=${comic.readDate}`}
-                >
-                  {issue.title}
-                </a>
-              </li>
-            ))
-        }
-      </ul>
-      <p>Next Issue/s:</p>
-      <ul>
-        {
-          comic.nextIssues[0]?.title &&
-            comic.nextIssues.map((issue) => (
-              <li>
-                <a
-                  href={`/scraped-comic?comicURL=${
-                    comic.publisher.wikiURL + issue.href
-                  }&readDate=${comic.readDate}`}
-                >
-                  {issue.title}
-                </a>
-              </li>
-            ))
-        }
-      </ul>
+      {
+        comic.previousIssues[0]?.title && (
+          <>
+            <p>Previous Issue/s:</p>
+            <ul>
+              {comic.previousIssues.map((issue) => (
+                <li>
+                  <a
+                    href={`/scraped-comic?comicURL=${
+                      comic.publisher.wikiURL + issue.href
+                    }&readDate=${comic.readDate}`}
+                  >
+                    {issue.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+      {
+        comic.nextIssues[0]?.title && (
+          <>
+            <p>Next Issue/s:</p>
+            <ul>
+              {comic.nextIssues.map((issue) => (
+                <li>
+                  <a
+                    href={`/scraped-comic?comicURL=${
+                      comic.publisher.wikiURL + issue.href
+                    }&readDate=${comic.readDate}`}
+                  >
+                    {issue.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        )
+      }
     </div>
   </header>
   <section>
@@ -146,8 +162,20 @@ console.log(comic);
   }
 
   header.card-header {
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
     font-size: 1.5rem;
     padding: 0;
+  }
+
+  header.card-header h1,
+  h2,
+  h3,
+  h4,
+  p {
+    width: fit-content;
   }
 
   header.card-header h2 {
@@ -157,7 +185,10 @@ console.log(comic);
   }
 
   header.card-header > img {
-    max-width: 30%;
+    max-height: 30rem;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
     border-radius: 1rem;
     border: 1px solid transparent;
     box-shadow: 2px 2px 10px black;
@@ -170,6 +201,8 @@ console.log(comic);
   }
 
   header.card-header > .card-header-datos {
+    flex-basis: 50%;
+    flex-grow: 1;
   }
 
   article.card section {
@@ -190,15 +223,15 @@ console.log(comic);
   ul {
     list-style: none;
   }
-
+  /* 
   @media (700px > width) {
     header.card-header {
       flex-direction: column;
     }
 
     header.card-header > img {
-      max-width: 70%;
+      max-width: 80%;
       place-self: center;
     }
-  }
+  } */
 </style>
