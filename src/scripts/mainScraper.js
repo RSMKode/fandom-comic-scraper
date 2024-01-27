@@ -154,8 +154,9 @@ function scrapeDCComic(comicTemplate, $) {
     "div.mw-parser-output:contains('published')"
   ).text();
   const dateRegex = /[A-Z][a-z]+ [0-9]{1,2}, [0-9]{4}/;
-  const releaseDate = releaseDateData.match(dateRegex)[0];
-  console.log(releaseDateData);
+  const releaseDate = releaseDateData
+    ? releaseDateData.match(dateRegex)[0]
+    : "";
   comicTemplate.releaseDate = releaseDate ? releaseDate : "";
 
   let coverDate = $("h2.pi-item:nth-of-type(3)").text();
