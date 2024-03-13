@@ -1,22 +1,22 @@
 ---
+import dotenv from "dotenv";
+dotenv.config();
+
 import ComicCard from "../components/ComicCard.astro";
 import Layout from "../layouts/Layout.astro";
 import { scrapeComic } from "../scripts/mainScraper";
 import databases from "../data/databasesFandom.json";
+import Header from "../components/Header.astro";
 
-// const comicURL = "https://dc.fandom.com/wiki/Batman_Vol_3_1";
-// const comicURL = "https://dc.fandom.com/wiki/DCU:_Rebirth_Vol_1_1";
-const comicURL = "https://dc.fandom.com/wiki/Batman:_Rebirth_Vol_1_1";
+const { METRON_API_AUTH } = process.env;
 
-// const comic = await scrapeComic(comicURL, "2024/01/20");
-
-const json = await fetch("https://metron.cloud/api/arc/", {
+const json = await fetch("https://metron.cloud/api/character/145/", {
   headers: {
-    Authorization: `Basic UlNNS29kZTpAOTg1NTQ3ODRSc20=`,
+    Authorization: `Basic ${METRON_API_AUTH}`,
   },
 }).then((response) => response.json());
 
-console.log(json);
+const json2 = console.log(json);
 ---
 
 <Layout title="Fandom Comic Scraper">
@@ -24,7 +24,7 @@ console.log(json);
     <span class="text-gradient">Pruebas</span>
   </h1>
   <main class="container">
-    <!-- <ComicCard comic={comic} /> -->
+    <ul></ul>
   </main>
   <style></style>
   <script></script>

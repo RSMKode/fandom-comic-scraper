@@ -48,11 +48,7 @@ console.log(comic);
         </a>
       </h2>
       <h3>{comic.publisher.name}</h3>
-      {
-        comic.event_arc.length !== 0 && (
-          <h4>Event/Arc: {comic.event_arc.join(", ")}</h4>
-        )
-      }
+      {comic.event_arc && <h4>Event/Arc: {comic.event_arc.join(", ")}</h4>}
       {comic.releaseDate && <p>Release Date: {comic.releaseDate}</p>}
       {
         comic.coverDate && comic.coverDate !== comic.releaseDate && (

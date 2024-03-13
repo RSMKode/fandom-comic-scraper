@@ -10,7 +10,7 @@ export async function scrapeComic(comicURL, date) {
 
   const readDate = formattedToday;
 
-  let database = {};
+  let database;
 
   for (const element in databases) {
     if (comicURL.startsWith(databases[element].wikiURL)) {
@@ -43,7 +43,10 @@ function scrapeMarvelComic(comicTemplate, $) {
   const title = $("h2.pi-title").text();
 
   if (title) comicTemplate.title = title;
-  else throw new Error("Title not found. Please check the comic URL.");
+  else
+    throw new Error(
+      "Title not found. Please check the URL, maybe it's not a comic book."
+    );
 
   const collection = $("h2.pi-title a").text();
   comicTemplate.collection = collection;
@@ -60,7 +63,7 @@ function scrapeMarvelComic(comicTemplate, $) {
     )
   );
   comicTemplate.event_arc =
-    event_arcArray && event_arcArray?.length <= 4 ? event_arcArray : "";
+    event_arcArray.length && event_arcArray?.length <= 4 ? event_arcArray : "";
 
   const releaseDate = $("[data-source='ReleaseDate'] div").text();
   comicTemplate.releaseDate = releaseDate ? releaseDate : "";
@@ -127,6 +130,7 @@ function scrapeMarvelComic(comicTemplate, $) {
   console.log(comicTemplate);
   return comicTemplate;
 }
+
 function scrapeDCComic(comicTemplate, $) {
   const title = $("h2[data-source='OneShot']").text();
 

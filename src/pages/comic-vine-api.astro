@@ -1,0 +1,43 @@
+---
+import dotenv from "dotenv";
+dotenv.config();
+
+import ComicCard from "../components/ComicCard.astro";
+import Layout from "../layouts/Layout.astro";
+import { scrapeComic } from "../scripts/mainScraper";
+import databases from "../data/databasesFandom.json";
+
+const { COMIC_VINE_API_KEY } = process.env;
+
+// const url = `https://comicvine.gamespot.com/api/characters/?api_key=${auth}&format=json&filter=name:Spider-Man`;
+// const url = `https://comicvine.gamespot.com/api/publisher/31?api_key=${auth}&format=json`;
+const url = `https://comicvine.gamespot.com/api/character/4005-1443?api_key=${COMIC_VINE_API_KEY}&format=json`;
+
+const response = await fetch(url);
+// console.log(response);
+const json = await response.json();
+console.log(json);
+// const results = json.results;
+
+// console.log(results);
+---
+
+<Layout title="Fandom Comic Scraper">
+  <h1>
+    <span class="text-gradient">Pruebas</span>
+  </h1>
+  <main class="container">
+    <ul>
+      <!-- {
+        results.map((element) => (
+          <div>
+            <p>{element.name}</p>
+            <p>{element.id}</p>
+          </div>
+        ))
+      } -->
+    </ul>
+  </main>
+  <style></style>
+  <script></script>
+</Layout>
